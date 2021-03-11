@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login</title>
+	<title>Add Selling Entry</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -61,27 +61,27 @@
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
                     <div class="wrap-input100 validate-input" data-validate = "Enter selling amount">
-						<input class="input100" type="number" name="amount" placeholder="Selling Amount">
+						<input class="input100" type="number" step="0.01" name="amount" placeholder="Selling Amount">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
-					<div class="wrap-input100 validate-input" data-validate = "Enter selling amount">
-						<div class="dropdown">
-							<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							  Choose Shop
-							</button>
-							{% for i in merchant %}
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							  <a class="dropdown-item" href="#">{{ i.shopname }}</a>
-							</div>
-							{% endfor %}
-						  </div>
+					
+					{% for i in merchant %}
+					<div class="wrap-input100 validate-input" data-validate = "">
+						<label for="" class="mb-1 text-light">Select Shop Name:</label>
+						<input class="" type="radio" value="{{ i.shopname }}" name="shopn" id="shopn" style="height: 20px; width: 20px;">
+						<label for="shopn" class="text-light" name="shopnames">{{ i.shopname }}</label>
 					</div>
+					{% endfor %}
+
+					
+					
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="submit">
-							Add Shop
+							Add Entry
 						</button>
 					</div>
+					
 
 				
 				</form>

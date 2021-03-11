@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from .models import *
+import datetime
 
 # Create your views here.
 def homeapp(request):
@@ -65,9 +66,20 @@ def addEntry(request):
         customer = request.POST.get('customer')
         sellingdetail = request.POST.get('sellingdetail')
         amount = request.POST.get('amount')
-
-        godata = customers.objects.create(shopkipper=User.objects.get(id=request.user.id), shopname=merchant.objects.get(shopname), customername=customer, selldetail=sellingdetail, selling=amount)
+        shopnamevar = request.POST.get('shopn')
+        logged_user = User.objects.get(username=request.user.username)
+        amount = float(amount)
+        
+        godata = customers.objects.create(shopkipper=logged_user, shopname=merchant.objects.get(shopname=shopnamevar), customername=customer, selldetail=sellingdetail, dates=datetime.date.today(), selling=amount)
         godata.save()
         return redirect('/')
     else:
-        return render(request, 'addentry.html', {'merchant': merchant.objects.all()})
+        logged_user = User.objects.get(username=request.user.username)
+        mer_user = merchant.objects.filter(shopkipper=logged_user).all()
+        return render(request, 'addentry.html', {'merchant': mer_user})
+
+def History(request):
+    logged_user = User.objects.get(username=request.user.username)
+    mer_user = merchant.objects.filter(shopkipper=logged_user).all()
+    dataset = customers.objects.filter(shopkipper=logged_user).all()
+    return render(request, 'history.html', {'dataset': dataset, 'merchant': mer_user})

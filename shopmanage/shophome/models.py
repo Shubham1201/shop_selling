@@ -15,7 +15,7 @@ class customers(models.Model):
     customername = models.CharField(max_length=200, default='unknown')
     selldetail = models.TextField(null=True, blank=True)
     dates = models.DateField(auto_now=True)
-    selling = models.FloatField()
+    selling = models.FloatField(default=0)
 
     def __str__(self):
         return self.shopkipper.username + '-' + 'selling data'
